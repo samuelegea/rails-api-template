@@ -25,7 +25,7 @@ services:
   database:
     image: postgres
     volumes:
-      - ./your_app_pgdata:/your_app_pgdata
+      - your_app_pgdata:/your_app_pgdata
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
