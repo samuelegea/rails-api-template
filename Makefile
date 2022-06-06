@@ -11,18 +11,18 @@ down:
 build:
 	docker compose up --build;
 migrate:
-	docker compose exec backend bundle exec rake db:migrate;
+	docker compose run --rm backend bundle exec rake db:migrate;
 rollback:
-	docker compose exec backend bundle exec rake db:rollback;
+	docker compose run --rm backend bundle exec rake db:rollback;
 seed: 
-	docker compose exec backend bundle exec rake db:seed;
+	docker compose run --rm backend bundle exec rake db:seed;
 db_create:
-	docker compose exec backend bundle exec rake db:create;
+	docker compose run --rm backend bundle exec rake db:create;
 db_reset:
-	docker compose exec backend bundle exec rake db:drop db:create db:migrate db:seed;
+	docker compose run --rm backend bundle exec rake db:drop db:create db:migrate db:seed;
 test:
-	docker compose exec backend bundle exec rspec
+	docker compose run --rm backend bundle exec rspec
 rubocop:
-	docker compose exec backend bundle exec rubocop
+	docker compose run --rm backend bundle exec rubocop
 backend:
-	docker compose exec backend $(CMD)
+	docker compose run --rm backend $(CMD)

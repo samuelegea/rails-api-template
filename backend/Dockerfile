@@ -2,9 +2,9 @@ FROM ruby:3.1.2
 RUN apt-get update -qq && apt-get install -y postgresql-client
 RUN mkdir -p /backend
 WORKDIR /backend
-COPY ./Gemfile* ./
+COPY ./Gemfile* /backend
 RUN bundle install
-COPY ./ ./
+COPY . /backend
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
