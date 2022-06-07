@@ -11,6 +11,10 @@ services:
      - ./frontend:/frontend
     depends_on:
       - backend
+    environment:
+      - .env
+    networks:
+      - front_to_back
   backend:
     container_name: your_app_backend
     command: bundle exec rails s -b '0.0.0.0'
@@ -22,6 +26,11 @@ services:
       - "3000:3000"
     volumes:
       - ./backend:/backend
+    environment:
+      - .env
+    networks:
+      - front_to_back
+      - rails-api-template_database_network
   database:
     image: postgres
     volumes:
@@ -31,8 +40,15 @@ services:
       POSTGRES_PASSWORD: postgres
       PGDATA: /your_app_pgdata
     restart: always
+    networks:
+      - rails-api-template_database_network
   redis:
     image: redis:latest
 volumes:
   your_app_pgdata:
     external: true
+networks:
+  front_to_back:
+    driver: bridge
+  rails-api-template_database_network:
+  

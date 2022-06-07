@@ -1,15 +1,17 @@
 .PHONY: bundle server down build migrate seed db_create db_reset test 
 
 bundle:
-	docker compose exec web bundle install
+	docker compose run --rm backend bundle install
 up:
 	docker compose up;
 console:
-	docker compose exec web bundle exec rails c;
+	docker compose run --rm bundle exec rails c;
+up_build:
+	docker compose up --build
 down:
 	docker compose down;
 build:
-	docker compose up --build;
+	docker compose build --no-cache;
 migrate:
 	docker compose run --rm backend bundle exec rake db:migrate;
 rollback:
@@ -22,7 +24,11 @@ db_reset:
 	docker compose run --rm backend bundle exec rake db:drop db:create db:migrate db:seed;
 test:
 	docker compose run --rm backend bundle exec rspec
-rubocop:
+rubo:
 	docker compose run --rm backend bundle exec rubocop
-backend:
+rubofix:
+	docker compose run --rm backend bundle exec rubocop -x
+back:
 	docker compose run --rm backend $(CMD)
+front: 
+	docker compose run --rm frontend $(CMD)
