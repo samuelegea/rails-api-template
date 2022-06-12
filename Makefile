@@ -5,7 +5,9 @@ bundle:
 up:
 	docker compose up;
 console:
-	docker compose run --rm bundle exec rails c;
+	docker compose run --rm backend bundle exec rails c;
+routes:
+	docker compose run --rm backend bundle exec rails routes;
 up_build:
 	docker compose up --build
 down:
